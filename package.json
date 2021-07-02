@@ -1,0 +1,15 @@
+{
+  "name": "dev-buddy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Minho Lee",
+  "scripts": {
+    "client": "cd frontend && yarn serve",
+    "server": "cd backend && nodemon --exec babel-node src/index.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
