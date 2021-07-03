@@ -1,14 +1,24 @@
 <template>
-  <footer class="app-footer"></footer>
+  <footer class="app-footer">
+    {{ currentYear }}
+  </footer>
 </template>
 
 <script>
 export default {
   name: 'AppFooter',
-  computed: {
-    currentYear() {
-      return new Date().getFullYear()
+  data() {
+    return {
+      currentYear: ''
     }
+  },
+  methods: {
+    getCurrentYear() {
+      this.currentYear = new Date().getFullYear()
+    }
+  },
+  mounted() {
+    this.getCurrentYear()
   }
 }
 </script>
