@@ -1,25 +1,12 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <div>{{ title }}</div>
+    <h1>{{ title }}</h1>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
-  },
   data() {
     return {
       title: ''
@@ -27,8 +14,8 @@ export default {
   },
   methods: {
     getTitle() {
-      axios
-        .get('http://localhost:4040/api')
+      this.$axios
+        .get('/api')
         .then((res) => {
           this.title = res.data.title
         })
