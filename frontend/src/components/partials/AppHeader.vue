@@ -20,6 +20,9 @@
       <vs-navbar-item index="3">
         <router-link to="/signup">회원가입</router-link>
       </vs-navbar-item>
+      <vs-navbar-item index="4">
+        <router-link to="/new-post">스터디 모집</router-link>
+      </vs-navbar-item>
     </vs-navbar>
   </header>
 </template>
