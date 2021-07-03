@@ -1,4 +1,5 @@
 import './db'
+import './models/Post'
 import app from './app'
 
 const PORT = 4040
