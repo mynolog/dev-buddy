@@ -20,9 +20,9 @@ export const signup = async (req, res) => {
       password,
     })
     console.log('signup success from backend')
-    return res.json({ result: 1 })
+    return res.status(200).json({ result: 1 })
   } catch (err) {
     console.log(err)
-    return res.json({ result: 0 })
+    return res.status(400).json({ result: 0 })
   }
 }
