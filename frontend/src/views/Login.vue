@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// import api from '@/api'
+import api from '@/api'
 import LoginForm from '@/components/LoginForm'
 
 export default {
@@ -16,7 +16,22 @@ export default {
   methods: {
     onSubmit(payload) {
       const { email, password } = payload
-      console.log(email, password)
+      api
+        .post('/api/login', {
+          email,
+          password
+        })
+        .then((res) => {
+          const { data } = res
+          if (data.result === 1) {
+            console.log('프론트엔드 로그인 성공')
+            this.$router.push('/')
+          }
+          if (data.result === 0) {
+            console.log('프론트엔드 로그인 실패')
+            alert(data.errorMessage)
+          }
+        })
     }
   }
 }
