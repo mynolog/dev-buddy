@@ -23,14 +23,15 @@ export default {
           password
         })
         .then((res) => {
+          const { data } = res
           // 회원가입 성공 시
-          if (res.data.result === 1) {
-            console.log('signup success from frontend')
-            this.$router.push('/')
+          if (data.result === 1) {
+            console.log('프론트엔드 회원가입 성공')
+            this.$router.push('/login')
           }
           // 회원가입 실패 시
-          if (res.data.result === 0) {
-            console.log('something went wrong.. try again.')
+          if (data.result === 0) {
+            alert(data.errorMessage)
           }
         })
         .catch((err) => console.log(err))

@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { home, posts, signup } from '../controllers/boardController'
+import { home, posts } from '../controllers/boardController'
+import { signup } from '../controllers/userController'
 
 const apiRouter = Router()
 
