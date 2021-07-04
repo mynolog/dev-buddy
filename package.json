@@ -10,6 +10,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^6.2.0"
+    "@vue/cli": "^4.5.13",
+    "concurrently": "^6.2.0",
+    "global": "^4.4.0"
   }
 }
