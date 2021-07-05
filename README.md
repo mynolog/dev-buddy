@@ -10,6 +10,7 @@
 
 ### 💬 설계
 
+![erd](./databases/erd.png)
 ### 📌 TODO
 
 - [x] DB - MySQL로 변경
