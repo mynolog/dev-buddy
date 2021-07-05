@@ -1,7 +1,5 @@
 import 'dotenv/config'
 import './config/db'
-// import './models/Post'
-// import './models/User'
 import app from './app'
 
 const PORT = 4040

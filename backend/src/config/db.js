@@ -1,6 +1,6 @@
 import mysql from 'mysql2'
 
-let db = mysql.createConnection({
+export const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PW,
@@ -12,5 +12,3 @@ db.connect((err) => {
   if (err) throw err
   console.log('✅ DB 연결 성공')
 })
-
-export default db
