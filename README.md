@@ -6,7 +6,7 @@
 
 ![front](https://img.shields.io/badge/Frontend-Vue-lightgreen?style=for-the-badge)
 ![back](https://img.shields.io/badge/Backend-Node-green?style=for-the-badge&logo=express)
-![db](https://img.shields.io/badge/DB-MongoDB-darkgreen?style=for-the-badge&logo=mongodb)
+![db](https://img.shields.io/badge/DB-Mysql-blue?style=for-the-badge&logo=mysql)
 
 ### 💬 설계
 
