@@ -1,43 +1,24 @@
-// import User from '../models/User'
-// import bcrypt from 'bcrypt'
+import db from '../config/db'
+import bcrypt from 'bcrypt'
+import { joinUser, existEmail } from '../sql/query'
 
-// export const signup = async (req, res) => {
-//   // TODO: 입력한 email, username이 DB에 이미 존재할 경우 분기 처리
-//   const {
-//     body: { email, name, username, password },
-//   } = req
-//   const existEmail = await User.exists({ email })
-//   if (existEmail) {
-//     return res.json({
-//       result: 0,
-//       errorMessage: '사용중인 이메일 주소입니다.',
-//     })
-//   }
-//   const existUsername = await User.exists({ username })
-//   if (existUsername) {
-//     return res.json({
-//       result: 0,
-//       errorMessage: '사용중인 닉네임입니다.',
-//     })
-//   }
-
-//   try {
-//     await User.create({
-//       email,
-//       name,
-//       username,
-//       password,
-//     })
-//     console.log('백엔드 회원가입 성공')
-//     return res.json({ result: 1 })
-//   } catch (err) {
-//     console.log(err)
-//     return res.json({
-//       result: 0,
-//       errorMessage: '회원가입에 실패했습니다.',
-//     })
-//   }
-// }
+export const signup = (req, res) => {
+  const {
+    body: { email, name, password },
+  } = req
+  db.query(existEmail, [email], (err, row) => {
+    if (row[0] === undefined) {
+      const saltedPw = bcrypt.hashSync(password, 10)
+      const user = { email, name, password: saltedPw }
+      db.query(joinUser, user, (err, row2) => {
+        if (err) throw err
+        return res.json({ result: 1, message: '회원가입 성공' })
+      })
+    } else {
+      return res.json({ result: 0, message: '이미 등록된 이메일 주소입니다.' })
+    }
+  })
+}
 
 // export const login = async (req, res) => {
 //   // TODO: 세션을 활용하여 로그인 상태 유지하기 구현

@@ -5,7 +5,6 @@
       <form method="POST" @submit.prevent="submit">
         <vs-input type="email" v-model="email" placeholder="이메일" required />
         <vs-input v-model="name" placeholder="이름" required />
-        <vs-input v-model="username" placeholder="닉네임" required />
         <vs-input
           type="password"
           placeholder="비밀번호"
@@ -33,19 +32,18 @@ export default {
     return {
       email: '',
       name: '',
-      username: '',
       password: '',
       password2: ''
     }
   },
   methods: {
     submit() {
-      const { email, name, username, password, password2 } = this
+      const { email, name, password, password2 } = this
       if (password !== password2) {
         alert('비밀번호가 일치하지 않습니다.')
         return
       }
-      this.$emit('submit', { email, name, username, password })
+      this.$emit('submit', { email, name, password })
     }
   }
 }

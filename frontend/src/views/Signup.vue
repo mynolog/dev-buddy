@@ -14,24 +14,23 @@ export default {
   },
   methods: {
     onSubmit(payload) {
-      const { email, name, username, password } = payload
+      const { email, name, password } = payload
       api
         .post('/api/signup', {
           email,
           name,
-          username,
           password
         })
         .then((res) => {
           const { data } = res
           // 회원가입 성공 시
           if (data.result === 1) {
-            console.log('프론트엔드 회원가입 성공')
+            alert(data.message)
             this.$router.push('/login')
           }
           // 회원가입 실패 시
           if (data.result === 0) {
-            alert(data.errorMessage)
+            alert(data.message)
           }
         })
         .catch((err) => console.log(err))

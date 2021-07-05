@@ -1,5 +1,5 @@
 import 'dotenv/config'
-// import './db'
+import './config/db'
 // import './models/Post'
 // import './models/User'
 import app from './app'
