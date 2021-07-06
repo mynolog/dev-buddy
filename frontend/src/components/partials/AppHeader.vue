@@ -15,13 +15,18 @@
 
       <vs-navbar-item index="1"> </vs-navbar-item>
       <vs-navbar-item index="2">
+        <router-link v-if="!this.$store.state.loggedIn" to="/signup"
+          >회원가입</router-link
+        >
+        <router-link v-else to="/dash-board"
+          >{{ this.$store.state.user.name }} 님 대시보드</router-link
+        >
+      </vs-navbar-item>
+      <vs-navbar-item index="3">
         <router-link v-if="!this.$store.state.loggedIn" to="/login"
           >로그인</router-link
         >
         <router-link v-else to="/logout">로그아웃</router-link>
-      </vs-navbar-item>
-      <vs-navbar-item index="3">
-        <router-link to="/signup">회원가입</router-link>
       </vs-navbar-item>
       <vs-navbar-item index="4">
         <router-link to="/new-post">스터디 모집</router-link>
