@@ -3,9 +3,12 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import Vuesax from 'vuesax'
+import VueCookie from 'vue-cookie'
+import store from './store/store'
 import 'vuesax/dist/vuesax.css'
 import 'material-icons/iconfont/material-icons.css'
 
+Vue.use(VueCookie)
 Vue.use(Vuesax)
 
 Vue.prototype.$axios = axios
@@ -13,6 +16,7 @@ Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
   render: (h) => h(App)
 }).$mount('#app')

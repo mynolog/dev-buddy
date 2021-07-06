@@ -1,6 +1,6 @@
 import 'dotenv/config'
-import './config/db'
 import app from './app'
+import './config/db'
 
 const PORT = 4040
 

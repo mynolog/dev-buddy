@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import api from '@/api/index'
 export default {
   name: 'SignupForm',
   data() {
@@ -36,6 +37,7 @@ export default {
       password2: ''
     }
   },
+
   methods: {
     submit() {
       const { email, name, password, password2 } = this
@@ -43,7 +45,25 @@ export default {
         alert('비밀번호가 일치하지 않습니다.')
         return
       }
-      this.$emit('submit', { email, name, password })
+      api
+        .post('/api/signup', {
+          email,
+          name,
+          password
+        })
+        .then((res) => {
+          const { data } = res
+          // 회원가입 성공 시
+          if (data.result === 1) {
+            alert(data.message)
+            this.$router.push('/login')
+          }
+          // 회원가입 실패 시
+          if (data.result === 0) {
+            alert(data.message)
+          }
+        })
+        .catch((err) => console.log(err))
     }
   }
 }
