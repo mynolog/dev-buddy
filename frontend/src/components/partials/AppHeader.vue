@@ -31,6 +31,9 @@
       <vs-navbar-item index="4">
         <router-link to="/new-post">스터디 모집</router-link>
       </vs-navbar-item>
+      <vs-navbar-item index="5">
+        <router-link to="/posts">찾아보기</router-link>
+      </vs-navbar-item>
     </vs-navbar>
   </header>
 </template>

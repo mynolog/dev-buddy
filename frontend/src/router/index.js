@@ -17,13 +17,23 @@ const routes = [
   },
   {
     path: '/logout',
-    name: 'Login',
+    name: 'Logout',
     redirect: '/'
+  },
+  {
+    path: '/dash-board',
+    name: 'DashBoard',
+    component: () => import('../views/DashBoard.vue')
   },
   {
     path: '/signup',
     name: 'Signup',
     component: () => import('../views/Signup.vue')
+  },
+  {
+    path: '/posts',
+    name: 'Posts',
+    component: () => import('../views/Posts.vue')
   },
   {
     path: '/new-post',
