@@ -12,6 +12,7 @@
 
 ### 💬 설계
 
+![api](databases/api.png)
 ![erd](./databases/erd.png)
 
 ### 📌 TODO
