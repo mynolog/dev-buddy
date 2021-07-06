@@ -26,7 +26,7 @@
         <router-link v-if="!this.$store.state.loggedIn" to="/login"
           >로그인</router-link
         >
-        <router-link v-else to="/logout">로그아웃</router-link>
+        <router-link v-else to="/" @click.native="logout">로그아웃</router-link>
       </vs-navbar-item>
       <vs-navbar-item index="4">
         <router-link to="/new-post">스터디 모집</router-link>
@@ -45,6 +45,11 @@ export default {
     return {
       colorx: '#1B57A6',
       indexActive: 0
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.commit('resetUserInfo')
     }
   }
 }

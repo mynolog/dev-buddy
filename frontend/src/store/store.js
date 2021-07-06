@@ -28,7 +28,6 @@ export default new Vuex.Store({
       state.user.id = null
       state.user.email = null
       state.user.name = null
-      localStorage.clear()
     }
   },
   getters: {},
