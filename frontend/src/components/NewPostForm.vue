@@ -47,4 +47,7 @@ export default {
   width: 100%;
   margin-bottom: 10px;
 }
+.vs-col {
+  padding: 20px;
+}
 </style>

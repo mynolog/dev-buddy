@@ -1,9 +1,15 @@
 <template>
-  <h1>대시보드</h1>
+  <user-info />
 </template>
 
 <script>
-export default {}
+import UserInfo from '@/components/UserInfo'
+export default {
+  name: 'DashBoard',
+  components: {
+    UserInfo
+  }
+}
 </script>
 
 <style></style>
