@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <app-header />
-    <router-view />
+    <router-view class="view" />
     <app-footer />
   </div>
 </template>
@@ -25,5 +25,15 @@ export default {
   font-family: 'Noto Sans KR', sans-serif;
   text-align: center;
   color: #2c3e50;
+  position: relative;
+  min-height: 100%;
+  text-decoration: none;
+  list-style: none;
+}
+.view {
+  width: 80%;
+  margin: 0 auto;
+  height: 94.5vh;
+  padding: 70px 0;
 }
 </style>

@@ -15,17 +15,13 @@
 
       <vs-navbar-item index="1"> </vs-navbar-item>
       <vs-navbar-item index="2">
-        <router-link v-if="!this.$store.state.loggedIn" to="/signup"
-          >회원가입</router-link
-        >
-        <router-link v-else to="/dash-board"
-          >{{ this.$store.state.user.name }} 님 대시보드</router-link
-        >
+        <router-link v-if="!loggedIn" to="/signup">회원가입</router-link>
+        <router-link v-else to="/dash-board">
+          {{ userName }} 님 대시보드
+        </router-link>
       </vs-navbar-item>
       <vs-navbar-item index="3">
-        <router-link v-if="!this.$store.state.loggedIn" to="/login"
-          >로그인</router-link
-        >
+        <router-link v-if="!loggedIn" to="/login">로그인</router-link>
         <router-link v-else to="/" @click.native="logout">로그아웃</router-link>
       </vs-navbar-item>
       <vs-navbar-item index="4">
@@ -49,7 +45,15 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit('resetUserInfo')
+      this.$store.commit('logout')
+    }
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.getters.getLoggedIn
+    },
+    userName() {
+      return this.$store.getters.getUserName
     }
   }
 }

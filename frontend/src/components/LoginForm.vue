@@ -42,9 +42,8 @@ export default {
           const { data } = res
           if (data.result === 1) {
             console.log('프론트엔드 로그인 성공')
-            this.$store.commit('setUserInfo', data)
+            this.$store.commit('login', data)
             this.$cookie.set('accessToken', data.token, 7)
-            api.defaults.headers.common['x-access-token'] = data.token
             this.$router.push('/')
           }
           if (data.result === 0) {

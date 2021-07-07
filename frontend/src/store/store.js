@@ -9,28 +9,38 @@ export default new Vuex.Store({
     user: {
       id: null,
       email: null,
-      name: null
+      name: null,
+      token: null
     },
-    token: null,
     loggedIn: false
   },
   mutations: {
-    setUserInfo(state, payload) {
+    login(state, payload) {
       state.loggedIn = true
-      state.token = payload.token
+      state.user.token = payload.token
       state.user.id = payload.user.id
       state.user.email = payload.user.email
       state.user.name = payload.user.name
     },
-    resetUserInfo(state) {
+    logout(state) {
       state.loggedIn = false
-      state.token = null
+      state.user.token = null
       state.user.id = null
       state.user.email = null
       state.user.name = null
     }
   },
-  getters: {},
+  getters: {
+    getLoggedIn(state) {
+      return state.loggedIn
+    },
+    getUser(state) {
+      return state.user
+    },
+    getUserName(state) {
+      return state.user.name
+    }
+  },
   actions: {},
   plugins: [createPersistedState()]
 })
