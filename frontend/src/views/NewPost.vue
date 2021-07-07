@@ -1,11 +1,16 @@
 <template>
-  <h1>New Post</h1>
+  <div>
+    <new-post-form />
+  </div>
 </template>
 
 <script>
+import NewPostForm from '@/components/NewPostForm'
 export default {
   name: 'NewPost',
-  components: {}
+  components: {
+    NewPostForm
+  }
 }
 </script>
 
