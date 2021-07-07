@@ -5,9 +5,10 @@
   "author": "Minho Lee",
   "license": "MIT",
   "scripts": {
+    "start": "node src/index.js",
+    "heroku-postbuild": "npx webpack",
     "dev": "nodemon --exec babel-node src/index.js",
-    "postinstall": "npm install express",
-    "start": "node src/index.js"
+    "postinstall": "npm install express"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
