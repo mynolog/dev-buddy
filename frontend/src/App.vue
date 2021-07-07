@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <app-header />
+    <weather-info />
     <router-view class="view" />
     <app-footer />
   </div>
@@ -9,12 +10,14 @@
 <script>
 import AppHeader from '@/components/partials/AppHeader'
 import AppFooter from '@/components/partials/AppFooter'
+import WeatherInfo from '@/components/WeatherInfo'
 
 export default {
   name: 'App',
   components: {
     AppHeader,
-    AppFooter
+    AppFooter,
+    WeatherInfo
   }
 }
 </script>
@@ -33,7 +36,7 @@ export default {
 .view {
   width: 80%;
   margin: 0 auto;
-  height: 94.5vh;
-  padding: 70px 0;
+  height: 94vh;
+  padding: 50px 0;
 }
 </style>
