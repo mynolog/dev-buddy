@@ -2,7 +2,7 @@
   <div class="post__table">
     <vs-table max-items="5" pagination :data="postList">
       <template slot="header">
-        <h3>전체 포스팅</h3>
+        <h3>둘러보기</h3>
       </template>
       <template slot="thead">
         <vs-th>번호</vs-th>
@@ -35,15 +35,21 @@
 export default {
   name: 'AllPosts',
   data: () => ({
-    postList: []
+    postList: [],
+    loading: false
   }),
   methods: {
     getPosts() {
-      const {
-        params: { id }
-      } = this.$route
-      console.log(id)
+      this.loading = true
+      this.$vs.loading()
+      // const {
+      //   params: { id }
+      // } = this.$route
       this.$axios.get('/api/posts/').then((res) => {
+        this.loading = false
+        setTimeout(() => {
+          this.$vs.loading.close()
+        }, 500)
         const { data } = res
         this.postList = JSON.parse(data.postList)
       })

@@ -9,48 +9,41 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: { authRequired: false }
+    meta: { authRequired: true }
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue'),
-    meta: { authRequired: false }
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/logout',
-    name: 'Logout',
-    meta: { authRequired: true }
+    name: 'Logout'
   },
   {
     path: '/dash-board',
     name: 'DashBoard',
-    component: () => import('../views/DashBoard.vue'),
-    meta: { authRequired: true }
+    component: () => import('../views/DashBoard.vue')
   },
   {
     path: '/signup',
     name: 'Signup',
-    component: () => import('../views/Signup.vue'),
-    meta: { authRequired: false }
+    component: () => import('../views/Signup.vue')
   },
   {
     path: '/posts',
     name: 'Posts',
-    component: () => import('../views/Posts.vue'),
-    meta: { authRequired: true }
+    component: () => import('../views/Posts.vue')
   },
   {
     path: '/posts/:id',
     name: 'Post',
-    component: () => import('../views/Post.vue'),
-    meta: { authRequired: true }
+    component: () => import('../views/Post.vue')
   },
   {
     path: '/new-post',
     name: 'NewPost',
-    component: () => import('../views/NewPost.vue'),
-    meta: { authRequired: true }
+    component: () => import('../views/NewPost.vue')
   }
 ]
 
@@ -58,20 +51,6 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
-
-router.beforeEach((to, from, next) => {
-  if (
-    to.matched.some((routeInfo) => {
-      return routeInfo.meta.authRequired
-    })
-  ) {
-    alert('로그인하세요!')
-    next('/login')
-  } else {
-    console.log(`routing success to: ${to.path}`)
-    next()
-  }
 })
 
 export default router

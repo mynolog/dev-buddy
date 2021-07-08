@@ -23,6 +23,12 @@
 <script>
 export default {
   name: 'UserInfo',
+  data() {
+    return {
+      loading: false
+    }
+  },
+
   computed: {
     userName() {
       return this.$store.getters.getUserName

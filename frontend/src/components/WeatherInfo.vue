@@ -16,16 +16,23 @@ export default {
         desc: null,
         icon: null,
         temp: null
-      }
+      },
+      loading: false
     }
   },
   methods: {
     fetchWeather(lat, lon) {
+      this.loading = true
+      this.$vs.loading()
       this.$axios
         .get(
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.VUE_APP_WEATHER_API_KEY}&units=metric`
         )
         .then(({ data }) => {
+          this.loading = false
+          setTimeout(() => {
+            this.$vs.loading.close()
+          }, 500)
           const weather = data
           this.city = weather.name
           this.country = weather.sys.country

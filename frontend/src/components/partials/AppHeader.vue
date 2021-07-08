@@ -28,7 +28,7 @@
         <router-link v-if="loggedIn" to="/new-post">스터디 모집</router-link>
       </vs-navbar-item>
       <vs-navbar-item index="5">
-        <router-link v-if="loggedIn" to="/posts">찾아보기</router-link>
+        <router-link v-if="loggedIn" to="/posts">둘러보기</router-link>
       </vs-navbar-item>
     </vs-navbar>
   </header>

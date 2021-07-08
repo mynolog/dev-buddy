@@ -20,7 +20,11 @@ export const newPost = (req, res) => {
     try {
       // 생성된 게시물의 아이디 값
       const newId = row['insertId']
-      return res.json({ result: 1, message: '포스팅 성공', pid: newId })
+      return res.json({
+        result: 1,
+        message: '포스팅 성공했습니다.',
+        pid: newId,
+      })
     } catch (err) {
       console.log(err)
       return res.json({

@@ -14,6 +14,7 @@
           >로그인</vs-button
         >
       </form>
+      <router-link to="/signup">아직 계정이 없나요? &rarr;</router-link>
     </div>
   </div>
 </template>
@@ -27,11 +28,14 @@ export default {
     return {
       email: '',
       password: '',
-      token: ''
+      token: '',
+      loading: false
     }
   },
   methods: {
     submit() {
+      this.loading = true
+      this.$vs.loading()
       const { email, password } = this
       api
         .post('/api/login', {
@@ -39,16 +43,29 @@ export default {
           password
         })
         .then((res) => {
+          this.loading = false
+          setTimeout(() => {
+            this.$vs.loading.close()
+          }, 300)
           const { data } = res
           if (data.result === 1) {
             console.log('프론트엔드 로그인 성공')
+            this.$vs.notify({
+              title: '로그인 성공',
+              text: data.message,
+              color: 'success'
+            })
             this.$store.commit('login', data)
             this.$cookie.set('accessToken', data.token, 7)
             this.$router.push('/')
           }
           if (data.result === 0) {
             console.log('프론트엔드 로그인 실패')
-            alert(data.message)
+            this.$vs.notify({
+              title: '로그인 실패',
+              text: data.message,
+              color: 'danger'
+            })
           }
         })
     }

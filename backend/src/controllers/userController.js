@@ -13,12 +13,11 @@ export const signup = (req, res) => {
     if (row[0] === undefined) {
       // 비밀번호 암호화
       const saltedPw = bcrypt.hashSync(password, 10)
-      console.log(saltedPw)
       const user = { email, name, password: saltedPw }
       // 회원 정보 DB 저장
       db.query(joinUser, user, (err, row2) => {
         if (err) throw err
-        return res.json({ result: 1, message: '회원가입 성공' })
+        return res.json({ result: 1, message: '회원가입 성공했습니다.' })
       })
     } else {
       return res.json({ result: 0, message: '이미 등록된 이메일 주소입니다.' })
@@ -47,7 +46,7 @@ export const login = (req, res) => {
           req.session.authenticated = true
           return res.json({
             result: 1,
-            message: '로그인 성공',
+            message: '로그인 성공했습니다.',
             token: req.sessionID,
             user: { id: uid, name, email },
           })

@@ -30,11 +30,14 @@ export default {
     return {
       title: '',
       content: '',
-      userId: this.$store.getters.getUserId
+      userId: this.$store.getters.getUserId,
+      loading: false
     }
   },
   methods: {
     submit() {
+      this.loading = true
+      this.$vs.loading()
       const { title, content, userId } = this
       if (title === '' || content === '') {
         alert('제목과 내용을 입력하세요.')
@@ -43,13 +46,25 @@ export default {
       this.$axios
         .post(`/api/new-post`, { title, content, userId })
         .then(({ data }) => {
+          this.loading = false
+          this.$vs.loading.close()
           const { result, message, pid } = data
           if (result === 1) {
-            alert(message)
+            // alert(message)
+            this.$vs.notify({
+              title: '포스팅 완료',
+              text: message,
+              color: 'success'
+            })
             this.$router.push(`/posts/${pid}`)
           }
           if (result === 0) {
-            alert(message)
+            // alert(message)
+            this.$vs.notify({
+              title: '포스팅 실패',
+              text: message,
+              color: 'danger'
+            })
           }
         })
     }

@@ -21,6 +21,7 @@
           >회원가입</vs-button
         >
       </form>
+      <router-link to="/login">로그인하러 가기 &rarr;</router-link>
     </div>
   </div>
 </template>
@@ -34,12 +35,21 @@ export default {
       email: '',
       name: '',
       password: '',
-      password2: ''
+      password2: '',
+      loading: false
     }
   },
 
   methods: {
+    openNoti(keyword, message) {
+      this.$vs.notification({
+        title: keyword,
+        text: message
+      })
+    },
     submit() {
+      this.loading = true
+      this.$vs.loading()
       const { email, name, password, password2 } = this
       if (password !== password2) {
         alert('비밀번호가 일치하지 않습니다.')
@@ -52,15 +62,29 @@ export default {
           password
         })
         .then((res) => {
+          this.loading = false
+          setTimeout(() => {
+            this.$vs.loading.close()
+          }, 300)
           const { data } = res
           // 회원가입 성공 시
           if (data.result === 1) {
-            alert(data.message)
+            this.$vs.notify({
+              title: 'Signup Success',
+              text: data.message,
+              color: 'success'
+            })
             this.$router.push('/login')
           }
           // 회원가입 실패 시
           if (data.result === 0) {
-            alert(data.message)
+            // alert(data.message)
+            this.$vs.notify({
+              title: 'Signup Failed',
+              text: data.message,
+              color: 'danger'
+            })
+            this.openNoti('Error', data.message)
           }
         })
         .catch((err) => console.log(err))
