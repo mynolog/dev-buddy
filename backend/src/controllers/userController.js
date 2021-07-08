@@ -13,6 +13,7 @@ export const signup = (req, res) => {
     if (row[0] === undefined) {
       // 비밀번호 암호화
       const saltedPw = bcrypt.hashSync(password, 10)
+      console.log(saltedPw)
       const user = { email, name, password: saltedPw }
       // 회원 정보 DB 저장
       db.query(joinUser, user, (err, row2) => {

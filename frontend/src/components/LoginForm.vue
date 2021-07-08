@@ -48,7 +48,7 @@ export default {
           }
           if (data.result === 0) {
             console.log('프론트엔드 로그인 실패')
-            alert(data.errorMessage)
+            alert(data.message)
           }
         })
     }

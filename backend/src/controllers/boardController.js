@@ -6,7 +6,6 @@ export const home = (req, res) => res.json({ title: 'Hello from express.js' })
 export const posts = (req, res) => {
   let postList = null
   db.query(allPosts, (err, row) => {
-    console.log(row)
     postList = JSON.stringify(row)
     return res.json({ result: 1, postList })
   })
