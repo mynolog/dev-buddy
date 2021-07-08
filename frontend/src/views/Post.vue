@@ -1,13 +1,13 @@
 <template>
-  <all-posts />
+  <post-detail />
 </template>
 
 <script>
-import AllPosts from '@/components/AllPosts'
+import PostDetail from '@/components/PostDetail'
 export default {
-  name: 'Posts',
+  name: 'Post',
   components: {
-    AllPosts
+    PostDetail
   }
 }
 </script>

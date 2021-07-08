@@ -9,5 +9,6 @@ apiRouter.post('/signup', signup)
 apiRouter.post('/login', login)
 apiRouter.post('/new-post', newPost)
 apiRouter.get('/posts', posts)
+apiRouter.get('/posts/:id', posts)
 
 export default apiRouter

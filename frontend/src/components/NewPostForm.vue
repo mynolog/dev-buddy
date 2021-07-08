@@ -40,7 +40,14 @@ export default {
       this.$axios
         .post(`/api/new-post`, { title, content, userId })
         .then(({ data }) => {
-          console.log(data)
+          const { result, message, pid } = data
+          if (result === 1) {
+            alert(message)
+            this.$router.push(`/posts/${pid}`)
+          }
+          if (result === 0) {
+            alert(message)
+          }
         })
     }
   }

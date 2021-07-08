@@ -3,20 +3,20 @@
     <app-header />
     <weather-info />
     <router-view class="view" />
-    <app-footer />
+    <!-- <app-footer /> -->
   </div>
 </template>
 
 <script>
 import AppHeader from '@/components/partials/AppHeader'
-import AppFooter from '@/components/partials/AppFooter'
+// import AppFooter from '@/components/partials/AppFooter'
 import WeatherInfo from '@/components/WeatherInfo'
 
 export default {
   name: 'App',
   components: {
     AppHeader,
-    AppFooter,
+    // AppFooter,
     WeatherInfo
   }
 }
