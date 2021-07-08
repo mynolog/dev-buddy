@@ -12,7 +12,7 @@
             <h3>{{ user.email }}</h3>
           </vs-col>
         </vs-row>
-        <vs-button button="submit" color="primary" type="filled"
+        <vs-button @click="submit" button="submit" color="primary" type="filled"
           >수정하기</vs-button
         >
       </vs-card>
@@ -32,6 +32,11 @@ export default {
     },
     user() {
       return this.$store.getters.getUser
+    }
+  },
+  methods: {
+    submit() {
+      alert('⚠ 개인정보 수정하기 기능 개발중....')
     }
   }
 }

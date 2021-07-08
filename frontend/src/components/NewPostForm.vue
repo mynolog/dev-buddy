@@ -36,7 +36,10 @@ export default {
   methods: {
     submit() {
       const { title, content, userId } = this
-      console.log(userId)
+      if (title === '' || content === '') {
+        alert('제목과 내용을 입력하세요.')
+        return
+      }
       this.$axios
         .post(`/api/new-post`, { title, content, userId })
         .then(({ data }) => {

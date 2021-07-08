@@ -1,5 +1,10 @@
 import { Router } from 'express'
-import { home, posts, newPost } from '../controllers/boardController'
+import {
+  home,
+  posts,
+  newPost,
+  postDetail,
+} from '../controllers/boardController'
 import { signup, login } from '../controllers/userController'
 
 const apiRouter = Router()
@@ -9,6 +14,6 @@ apiRouter.post('/signup', signup)
 apiRouter.post('/login', login)
 apiRouter.post('/new-post', newPost)
 apiRouter.get('/posts', posts)
-apiRouter.get('/posts/:id', posts)
+apiRouter.get('/posts/:id', postDetail)
 
 export default apiRouter
