@@ -39,4 +39,7 @@ export default {
   height: 94vh;
   padding: 50px 0;
 }
+a {
+  color: #000;
+}
 </style>

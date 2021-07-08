@@ -7,6 +7,7 @@ export const posts = (req, res) => {
   let postList = null
   db.query(allPosts, (err, row) => {
     postList = JSON.stringify(row)
+    console.log(postList)
     return res.json({ result: 1, postList })
   })
 }
@@ -17,6 +18,7 @@ export const newPost = (req, res) => {
   } = req
   const postContents = { title, content, user_id: userId }
   db.query(createPost, postContents, (err, row) => {
+    console.log(row)
     try {
       // 생성된 게시물의 아이디 값
       const newId = row['insertId']

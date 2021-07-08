@@ -47,15 +47,13 @@ export default {
       // } = this.$route
       this.$axios.get('/api/posts/').then((res) => {
         this.loading = false
+        console.log(res.data)
         setTimeout(() => {
           this.$vs.loading.close()
         }, 500)
         const { data } = res
         this.postList = JSON.parse(data.postList)
       })
-    },
-    makeLink(id) {
-      return this.$router.push(`/posts/${id}`)
     }
   },
   mounted() {

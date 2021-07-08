@@ -63,9 +63,8 @@ export default {
         })
         .then((res) => {
           this.loading = false
-          setTimeout(() => {
-            this.$vs.loading.close()
-          }, 300)
+          this.$vs.loading.close()
+
           const { data } = res
           // 회원가입 성공 시
           if (data.result === 1) {
