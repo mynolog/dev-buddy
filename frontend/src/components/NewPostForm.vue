@@ -5,17 +5,19 @@
         <div slot="header">
           <h3>스터디 모집</h3>
         </div>
-        <vs-input type="text" v-model="title" placeholder="제목" />
-        <div>
-          <vs-textarea
-            v-model="content"
-            rows="6"
-            placeholder="내용"
-          ></vs-textarea>
-        </div>
-        <vs-button button="submit" color="primary" type="filled"
-          >작성하기</vs-button
-        >
+        <form method="POST" @submit.prevent="submit">
+          <vs-input type="text" v-model="title" placeholder="제목" />
+          <div>
+            <vs-textarea
+              v-model="content"
+              rows="6"
+              placeholder="내용"
+            ></vs-textarea>
+          </div>
+          <vs-button button="submit" color="primary" type="filled"
+            >작성하기</vs-button
+          >
+        </form>
       </vs-card>
     </vs-col>
   </vs-row>
@@ -27,13 +29,19 @@ export default {
   data() {
     return {
       title: '',
-      content: ''
+      content: '',
+      userId: this.$store.getters.getUserId
     }
   },
   methods: {
     submit() {
-      const { title, content } = this
-      console.log(title, content)
+      const { title, content, userId } = this
+      console.log(userId)
+      this.$axios
+        .post(`/api/new-post`, { title, content, userId })
+        .then(({ data }) => {
+          console.log(data)
+        })
     }
   }
 }

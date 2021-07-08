@@ -33,6 +33,7 @@ export default {
           this.weather.icon = weather.weather[0].icon
           this.weather.temp = weather.main.temp
         })
+        .catch((err) => console.log('Axios 에러 발생', err))
     },
     loadLocation() {
       const storedCoords = JSON.parse(localStorage.getItem('coords')) || null
@@ -53,7 +54,9 @@ export default {
       const lon = pos.coords.longitude
       this.saveLocation(lat, lon)
     },
-    geoError() {},
+    geoError() {
+      console.log('경도, 위도 값을 불러오지 못했습니다.')
+    },
     getCurrentLocation() {
       navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError)
     }
@@ -66,7 +69,6 @@ export default {
       return this.country
         ? `${this.currentTemp}° ${this.weather.desc} @ ${this.city}, ${this.country}`
         : '날씨 불러오기'
-      //   return `${this.currentTemp}° ${this.weather.desc} @ ${this.city}, ${this.country}`
     }
   }
 }

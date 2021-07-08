@@ -39,6 +39,9 @@ export default new Vuex.Store({
     },
     getUserName(state) {
       return state.user.name
+    },
+    getUserId(state) {
+      return state.user.id
     }
   },
   actions: {},

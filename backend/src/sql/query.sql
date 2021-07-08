@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `dev_buddy`.`post` (
   INDEX `fk_user_uid_idx` (`user_id` ASC),
   CONSTRAINT `fk_user_uid`
     FOREIGN KEY (`user_id`)
-    REFERENCES `deb_buddy`.`user` (`uid`)
+    REFERENCES `dev_buddy`.`user` (`uid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
