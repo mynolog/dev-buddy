@@ -30,7 +30,6 @@ export default {
       const {
         params: { id }
       } = this.$route
-      console.log(id)
       this.$axios.get(`/api/posts/${id}`).then(({ data }) => {
         const { result, message, post } = data
         if (result === 1) {

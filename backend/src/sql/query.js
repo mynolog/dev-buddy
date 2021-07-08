@@ -8,6 +8,6 @@ export const existUserInfo = `SELECT * FROM user WHERE email=?`
 
 export const createPost = `INSERT INTO post set ?`
 
-export const allPosts = `SELECT user.uid, user.name, post.pid, post.title, post.content, post.user_id FROM user, post WHERE user.uid = post.user_id`
+export const allPosts = `SELECT user.uid, user.name, post.pid, post.title, post.content, post.user_id FROM user, post WHERE user.uid = post.user_id ORDER BY post.pid DESC`
 
 export const findPostById = `SELECT * FROM post WHERE pid=?`

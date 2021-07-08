@@ -69,7 +69,7 @@ export default {
           // 회원가입 성공 시
           if (data.result === 1) {
             this.$vs.notify({
-              title: 'Signup Success',
+              title: '회원가입 완료',
               text: data.message,
               color: 'success'
             })
@@ -79,7 +79,7 @@ export default {
           if (data.result === 0) {
             // alert(data.message)
             this.$vs.notify({
-              title: 'Signup Failed',
+              title: '회원가입 실패',
               text: data.message,
               color: 'danger'
             })

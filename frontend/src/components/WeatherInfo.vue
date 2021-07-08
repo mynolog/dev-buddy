@@ -62,7 +62,12 @@ export default {
       this.saveLocation(lat, lon)
     },
     geoError() {
-      console.log('경도, 위도 값을 불러오지 못했습니다.')
+      const message = '경도, 위도 값을 불러오지 못했습니다.'
+      this.$vs.notify({
+        title: '위치 정보 오류',
+        text: message,
+        color: 'danger'
+      })
     },
     getCurrentLocation() {
       navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError)
