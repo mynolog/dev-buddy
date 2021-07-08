@@ -31,3 +31,20 @@
 - [ ] 네비게이션 가드 분기 처리 (클라이언트)
 - [ ] 폼 유효성 검사 (클라이언트)
 - [ ] 기본 쿼리문 작성 (수정, 삭제)
+
+### ‼ 로컬 테스트 방법
+
+```bash
+// Server
+$ yarn server
+```
+
+```bash
+// Client
+$ yarn client
+```
+
+```bash
+// Dev
+$ yarn dev
+```
