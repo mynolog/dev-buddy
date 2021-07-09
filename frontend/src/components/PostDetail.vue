@@ -10,8 +10,12 @@
             <p>{{ postObj.content }}</p>
           </vs-col>
         </vs-row>
-        <vs-button color="success" type="flat">수정하기</vs-button>
-        <vs-button color="danger" type="flat">삭제하기</vs-button>
+        <vs-button @click="notice" color="success" type="flat"
+          >수정하기</vs-button
+        >
+        <vs-button @click="notice" color="danger" type="flat"
+          >삭제하기</vs-button
+        >
       </vs-card>
     </vs-col>
   </vs-row>
@@ -26,6 +30,13 @@ export default {
     }
   },
   methods: {
+    notice() {
+      this.$vs.notify({
+        title: '기능 개발 알림',
+        text: '수정하기, 삭제하기 기능 개발중입니다.',
+        color: 'black'
+      })
+    },
     getPostById() {
       const {
         params: { id }

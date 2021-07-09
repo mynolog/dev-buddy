@@ -52,7 +52,7 @@ export default {
         })
     },
     loadLocation() {
-      const storedCoords = JSON.parse(localStorage.getItem('coords')) || null
+      const storedCoords = JSON.parse(localStorage.getItem('coords'))
       if (storedCoords === null) {
         this.getCurrentLocation()
       }
@@ -70,7 +70,8 @@ export default {
       const lon = pos.coords.longitude
       this.saveLocation(lat, lon)
     },
-    geoError() {
+    geoError(err) {
+      console.log(err)
       const message = '경도, 위도 값을 불러오지 못했습니다.'
       this.$vs.notify({
         title: '위치 정보 오류',
@@ -79,6 +80,7 @@ export default {
       })
     },
     getCurrentLocation() {
+      console.log('왜왜왜왜왜왜왜오.')
       navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError)
     }
   },

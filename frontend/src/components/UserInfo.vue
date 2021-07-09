@@ -42,7 +42,11 @@ export default {
   },
   methods: {
     submit() {
-      alert('⚠ 개인정보 수정하기 기능 개발중....')
+      this.$vs.notify({
+        title: '기능 개발 알림',
+        text: '개인정보 수정하기 기능 개발중입니다.',
+        color: 'black'
+      })
     }
   }
 }

@@ -8,6 +8,7 @@ import store from './store/store'
 import 'vuesax/dist/vuesax.css'
 import 'material-icons/iconfont/material-icons.css'
 
+console.log(process.env.VUE_APP_WEATHER_API_KEY)
 Vue.use(VueCookie)
 Vue.use(Vuesax)
 
