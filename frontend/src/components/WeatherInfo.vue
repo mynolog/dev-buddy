@@ -40,7 +40,16 @@ export default {
           this.weather.icon = weather.weather[0].icon
           this.weather.temp = weather.main.temp
         })
-        .catch((err) => console.log('Axios 에러 발생', err))
+        .catch((err) => {
+          this.loading = false
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: '401 에러 발생',
+            text: 'API 호출 권한이 없습니다.',
+            color: 'danger'
+          })
+          console.log(err)
+        })
     },
     loadLocation() {
       const storedCoords = JSON.parse(localStorage.getItem('coords')) || null

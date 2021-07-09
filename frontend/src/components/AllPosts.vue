@@ -42,18 +42,26 @@ export default {
     getPosts() {
       this.loading = true
       this.$vs.loading()
-      // const {
-      //   params: { id }
-      // } = this.$route
-      this.$axios.get('/api/posts/').then((res) => {
-        this.loading = false
-        console.log(res.data)
-        setTimeout(() => {
+      this.$axios
+        .get('/api/posts/')
+        .then((res) => {
+          this.loading = false
+          setTimeout(() => {
+            this.$vs.loading.close()
+          }, 500)
+          const { data } = res
+          this.postList = JSON.parse(data.postList)
+        })
+        .catch((err) => {
+          this.loading = false
           this.$vs.loading.close()
-        }, 500)
-        const { data } = res
-        this.postList = JSON.parse(data.postList)
-      })
+          this.$vs.notify({
+            title: '500 에러 발생',
+            text: '관리자에게 문의하세요.',
+            color: 'danger'
+          })
+          console.log(err)
+        })
     }
   },
   mounted() {
