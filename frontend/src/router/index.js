@@ -17,7 +17,9 @@ const authRequired = () => (to, from, next) => {
 
 const loggedIn = () => (to, from, next) => {
   const storedInfo = JSON.parse(localStorage.getItem('vuex'))
-  if (storedInfo.loggedIn) {
+  if (storedInfo === null) {
+    return next()
+  } else if (storedInfo.loggedIn) {
     console.log('라우팅 실패: 로그인 상태입니다.')
     return next('/')
   } else {
@@ -26,12 +28,20 @@ const loggedIn = () => (to, from, next) => {
   }
 }
 
+const firstVisit = () => (to, from, next) => {
+  const storedInfo = JSON.parse(localStorage.getItem('vuex'))
+  if (storedInfo === null) {
+    console.log('첫 방문을 환영합니다.')
+    return next('/login')
+  }
+}
+
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
-    beforeEnter: authRequired()
+    beforeEnter: firstVisit()
   },
   {
     path: '/login',
