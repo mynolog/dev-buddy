@@ -15,6 +15,17 @@ const authRequired = () => (to, from, next) => {
   }
 }
 
+const loggedIn = () => (to, from, next) => {
+  const storedInfo = JSON.parse(localStorage.getItem('vuex'))
+  if (storedInfo.loggedIn) {
+    console.log('라우팅 실패: 로그인 상태입니다.')
+    return next('/')
+  } else {
+    console.log(`라우팅 성공: ${to.path}`)
+    return next()
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -25,7 +36,8 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue')
+    component: () => import('../views/Login.vue'),
+    beforeEnter: loggedIn()
   },
   {
     path: '/logout',
@@ -41,7 +53,8 @@ const routes = [
   {
     path: '/signup',
     name: 'Signup',
-    component: () => import('../views/Signup.vue')
+    component: () => import('../views/Signup.vue'),
+    beforeEnter: loggedIn()
   },
   {
     path: '/posts',
