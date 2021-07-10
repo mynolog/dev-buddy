@@ -1,5 +1,4 @@
 import { dbConfig } from './config/db'
-import mysql from 'mysql2'
 import express from 'express'
 import path from 'path'
 import cors from 'cors'
@@ -8,13 +7,6 @@ import logger from 'morgan'
 import apiRouter from './routers/apiRouter'
 import MySQLStore from 'express-mysql-session'
 import history from 'connect-history-api-fallback'
-
-const db = mysql.createConnection(dbConfig)
-
-db.connect((err) => {
-  if (err) throw err
-  console.log('✅ DB 연결 성공')
-})
 
 MySQLStore(session)
 const sessionStore = new MySQLStore(dbConfig)
