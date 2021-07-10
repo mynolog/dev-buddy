@@ -10,5 +10,5 @@ module.exports = {
       }
     }
   },
-  outputDir: '../backend/public'
+  outputDir: '../backend/src/public'
 }
