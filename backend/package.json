@@ -5,8 +5,7 @@
   "author": "Minho Lee",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/index.js",
-    "postinstall": "npm install express"
+    "dev": "nodemon --exec babel-node src/index.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

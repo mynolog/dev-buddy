@@ -9,7 +9,7 @@ export const signup = (req, res) => {
   } = req
 
   db.query(existEmail, [email], (err, row) => {
-    // 콜백 함수의 리턴이 undefined라면 DB에 존재하지 않음
+    // 이메일이 DB에 존재하지 않을 경우
     if (row[0] === undefined) {
       // 비밀번호 암호화
       const saltedPw = bcrypt.hashSync(password, 10)
@@ -39,9 +39,9 @@ export const login = (req, res) => {
       })
       // DB에 등록된 이메일 일 경우
     } else if (row[0] !== undefined && row[0].email === email) {
-      bcrypt.compare(password, row[0].password, (err, data) => {
-        console.log(data)
-        if (!data) {
+      bcrypt.compare(password, row[0].password, (err, isCorrect) => {
+        // 비밀번호가 일치하지 않을 경우
+        if (!isCorrect) {
           return res.status(400).json({
             result: 0,
             message: '비밀번호를 다시 입력하세요.',

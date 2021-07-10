@@ -23,8 +23,8 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
-app.use(logger('dev'))
-app.use(express.static(path.join(__dirname.replace(/src/g, ''), 'public')))
+app.use(logger('combined'))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(
   session({
     key: process.env.COOKIE_NAME,
