@@ -8,7 +8,12 @@
         <vs-row vs-justify="center">
           <vs-col type="flex" vs-justify="center" vs-align="center">
             <small>{{ postInfo.createdAt }}</small>
-            <p>{{ postInfo.content }}</p>
+            <p>
+              <template v-for="(content, index) in postInfo.contents">
+                {{ content }}
+                <br :key="index" />
+              </template>
+            </p>
           </vs-col>
         </vs-row>
         <vs-button @click="notice" color="success" type="flat"
@@ -44,13 +49,15 @@ export default {
       } = this.$route
       this.$axios.get(`/api/posts/${id}`).then(({ data }) => {
         const { result, message, post } = data
+        const postInfo = JSON.parse(post)
+        const { pid, title, content, created_at } = postInfo
+        const contents = content.split('\n')
         if (result === 1) {
-          const parsedPost = JSON.parse(post)
           this.postInfo = {
-            pid: parsedPost.pid,
-            title: parsedPost.title,
-            content: parsedPost.content,
-            createdAt: parsedPost.created_at
+            pid,
+            title,
+            contents,
+            createdAt: created_at
           }
         }
         if (result === 0) {
