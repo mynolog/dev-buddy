@@ -1,10 +1,10 @@
-export const joinUser = `insert into user set ?`
+export const joinUser = `INSERT INTO user set ?`
 
 export const existEmail = `SELECT email FROM user WHERE email=?`
 
 export const existEmailPw = `SELECT email , password FROM user WHERE email=?`
 
-export const existUserInfo = `SELECT * FROM user WHERE email=?`
+export const existUserInfo = `SELECT uid, email, name, created_at FROM user WHERE email=?`
 
 export const createPost = `INSERT INTO post set ?`
 
