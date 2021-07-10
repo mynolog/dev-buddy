@@ -1,6 +1,6 @@
 import 'dotenv/config'
-import app from './app'
 import './config/db'
+import app from './app'
 
 const port = process.env.PORT || 4040
 

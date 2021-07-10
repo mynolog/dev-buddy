@@ -1,3 +1,5 @@
+import { dbConfig } from './config/db'
+import mysql from 'mysql2'
 import express from 'express'
 import path from 'path'
 import cors from 'cors'
@@ -5,25 +7,29 @@ import session from 'express-session'
 import logger from 'morgan'
 import apiRouter from './routers/apiRouter'
 import MySQLStore from 'express-mysql-session'
+import history from 'connect-history-api-fallback'
 
-// 개선 필요
-const options = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PW,
-  port: process.env.DB_PORT || 3306,
-  database: process.env.DB_NAME,
-}
+const db = mysql.createConnection(dbConfig)
+
+db.connect((err) => {
+  if (err) throw err
+  console.log('✅ DB 연결 성공')
+})
 
 MySQLStore(session)
-const sessionStore = new MySQLStore(options)
+const sessionStore = new MySQLStore(dbConfig)
 
 const app = express()
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
-app.use(logger('combined'))
+app.use(logger('dev'))
+app.use(
+  history({
+    verbose: true,
+  })
+)
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(
   session({
@@ -34,6 +40,7 @@ app.use(
     saveUninitialized: false,
   })
 )
+
 app.get('/', (req, res) => res.sendFile('/index.html'))
 app.use('/api', apiRouter)
 
