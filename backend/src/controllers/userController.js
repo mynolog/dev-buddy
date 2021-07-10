@@ -40,22 +40,22 @@ export const login = (req, res) => {
       // DB에 등록된 이메일 일 경우
     } else if (row[0] !== undefined && row[0].email === email) {
       bcrypt.compare(password, row[0].password, (err, data) => {
-        if (data) {
-          // 세션을 클라이언트로 전송 - 개선 필요
-          const { uid, email, name } = row[0]
-          req.session.authenticated = true
-          return res.json({
-            result: 1,
-            message: '로그인 성공했습니다.',
-            token: req.sessionID,
-            user: { id: uid, name, email },
-          })
-        } else {
-          return res.json({
+        console.log(data)
+        if (!data) {
+          return res.status(400).json({
             result: 0,
             message: '비밀번호를 다시 입력하세요.',
           })
         }
+        // 세션을 클라이언트로 전송 - 개선 필요
+        const { uid, email, name } = row[0]
+        req.session.authenticated = true
+        return res.status(200).json({
+          result: 1,
+          message: '로그인 성공했습니다.',
+          token: req.sessionID,
+          user: { id: uid, name, email },
+        })
       })
     }
   })

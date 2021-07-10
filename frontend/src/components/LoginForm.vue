@@ -44,9 +44,7 @@ export default {
         })
         .then((res) => {
           this.loading = false
-          setTimeout(() => {
-            this.$vs.loading.close()
-          }, 300)
+          this.$vs.loading.close()
           const { data } = res
           if (data.result === 1) {
             console.log('프론트엔드 로그인 성공')
@@ -59,14 +57,16 @@ export default {
             this.$cookie.set('accessToken', data.token, 7)
             this.$router.push('/')
           }
-          if (data.result === 0) {
-            console.log('프론트엔드 로그인 실패')
-            this.$vs.notify({
-              title: '로그인 실패',
-              text: data.message,
-              color: 'danger'
-            })
-          }
+        })
+        .catch((err) => {
+          this.loading = false
+          this.$vs.loading.close()
+          console.log('프론트엔드 로그인 실패')
+          this.$vs.notify({
+            title: '로그인 실패',
+            text: '비밀번호를 다시 입력하세요.' || err,
+            color: 'danger'
+          })
         })
     }
   }
