@@ -33,6 +33,9 @@ const firstVisit = () => (to, from, next) => {
   if (storedInfo === null) {
     console.log('첫 방문을 환영합니다.')
     return next('/login')
+  } else {
+    console.log(`라우팅 성공: ${to.path}`)
+    return next()
   }
 }
 
