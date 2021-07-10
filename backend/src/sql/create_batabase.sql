@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `dev_buddy`.`user` (
   `email` VARCHAR(50) NOT NULL,
   `name` VARCHAR(30) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
@@ -38,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `dev_buddy`.`post` (
   `title` VARCHAR(255) NOT NULL,
   `content` TEXT NOT NULL,
   `user_id` INT NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
   PRIMARY KEY (`pid`),
   INDEX `fk_user_uid_idx` (`user_id` ASC),
   CONSTRAINT `fk_user_uid`

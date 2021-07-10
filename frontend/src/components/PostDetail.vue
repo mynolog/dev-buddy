@@ -3,11 +3,12 @@
     <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="6">
       <vs-card>
         <div slot="header">
-          <h3>{{ postObj.title }}</h3>
+          <h3>{{ postInfo.title }}</h3>
         </div>
         <vs-row vs-justify="center">
           <vs-col type="flex" vs-justify="center" vs-align="center">
-            <p>{{ postObj.content }}</p>
+            <small>{{ postInfo.createdAt }}</small>
+            <p>{{ postInfo.content }}</p>
           </vs-col>
         </vs-row>
         <vs-button @click="notice" color="success" type="flat"
@@ -26,7 +27,7 @@ export default {
   name: 'PostDetail',
   data() {
     return {
-      postObj: {}
+      postInfo: {}
     }
   },
   methods: {
@@ -44,10 +45,21 @@ export default {
       this.$axios.get(`/api/posts/${id}`).then(({ data }) => {
         const { result, message, post } = data
         if (result === 1) {
-          this.postObj = JSON.parse(post)
+          const parsedPost = JSON.parse(post)
+          this.postInfo = {
+            pid: parsedPost.pid,
+            title: parsedPost.title,
+            content: parsedPost.content,
+            createdAt: parsedPost.created_at
+          }
         }
         if (result === 0) {
-          alert(message)
+          this.$vs.notify({
+            title: '404 에러',
+            text: '존재하지 않는 페이지입니다.' || message,
+            color: 'danger'
+          })
+          this.$router.push('/posts')
         }
       })
     }

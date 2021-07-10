@@ -8,6 +8,7 @@
         <vs-th>번호</vs-th>
         <vs-th>제목</vs-th>
         <vs-th>작성자</vs-th>
+        <vs-th>작성일</vs-th>
       </template>
 
       <template slot-scope="{ data }">
@@ -15,15 +16,16 @@
           <vs-td :data="data[indextr].pid">
             {{ data[indextr].pid }}
           </vs-td>
-
           <vs-td :data="data[indextr].title">
             <router-link :to="`/posts/${data[indextr].pid}`">
               {{ data[indextr].title }}
             </router-link>
           </vs-td>
-
           <vs-td :data="data[indextr].name">
             {{ data[indextr].name }}
+          </vs-td>
+          <vs-td :data="data[indextr].cratedAt">
+            <small>{{ data[indextr].createdAt }}</small>
           </vs-td>
         </vs-tr>
       </template>
@@ -51,6 +53,7 @@ export default {
           }, 500)
           const { data } = res
           this.postList = JSON.parse(data.postList)
+          console.log(this.postList)
         })
         .catch((err) => {
           this.loading = false
