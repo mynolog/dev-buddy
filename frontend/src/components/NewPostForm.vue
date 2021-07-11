@@ -30,18 +30,19 @@ export default {
     return {
       title: '',
       content: '',
-      userId: this.$store.getters.getUserId,
-      loading: false
+      userId: this.$store.getters.getUserId
     }
   },
   methods: {
     submit() {
-      this.loading = true
-      this.$vs.loading()
       const { title, content, userId } = this
-      if (title === '' || content === '') {
-        alert('제목과 내용을 입력하세요.')
-        return
+      if (!title || !content) {
+        this.$vs.notify({
+          title: '포스팅 실패',
+          text: '제목과 내용을 모두 입력하세요.',
+          color: 'danger'
+        })
+        return false
       }
       this.$axios
         .post(`/api/new-post`, { title, content, userId })
