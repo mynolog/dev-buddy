@@ -3,20 +3,20 @@
     <app-header />
     <weather-info />
     <router-view class="view" />
-    <!-- <app-footer /> -->
+    <app-footer />
   </div>
 </template>
 
 <script>
 import AppHeader from '@/components/partials/AppHeader'
-// import AppFooter from '@/components/partials/AppFooter'
+import AppFooter from '@/components/partials/AppFooter'
 import WeatherInfo from '@/components/WeatherInfo'
 
 export default {
   name: 'App',
   components: {
     AppHeader,
-    // AppFooter,
+    AppFooter,
     WeatherInfo
   }
 }
@@ -24,6 +24,18 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 #app {
   font-family: 'Noto Sans KR', sans-serif;
   text-align: center;
@@ -36,7 +48,7 @@ export default {
 .view {
   width: 80%;
   margin: 0 auto;
-  height: 94vh;
+  min-height: 95vh;
   padding: 50px 0;
 }
 a {
