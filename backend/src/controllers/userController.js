@@ -32,7 +32,9 @@ export const login = (req, res) => {
   } = req
   // 이메일이 DB에 존재한다면 이메일과 비밀번호 리턴
   db.query(existUserInfo, [email], (err, row) => {
-    if (row[0] === undefined) {
+    // 이메일이 DB에 존재하지 않는 경우
+    // TODO: new Error 객체로 에러 핸들링하기
+    if (!row[0]) {
       return res.json({
         result: 0,
         message: '등록되지 않은 이메일 주소입니다.',

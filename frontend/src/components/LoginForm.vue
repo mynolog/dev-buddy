@@ -28,14 +28,11 @@ export default {
     return {
       email: '',
       password: '',
-      token: '',
-      loading: false
+      token: ''
     }
   },
   methods: {
     submit() {
-      this.loading = true
-      this.$vs.loading()
       const { email, password } = this
       api
         .post('/api/login', {
@@ -43,8 +40,6 @@ export default {
           password
         })
         .then((res) => {
-          this.loading = false
-          this.$vs.loading.close()
           const { data } = res
           if (data.result === 1) {
             console.log('프론트엔드 로그인 성공')
@@ -57,10 +52,17 @@ export default {
             this.$cookie.set('accessToken', data.token, 7)
             this.$router.push('/')
           }
+          if (data.result === 0) {
+            console.log('프론트엔드 로그인 실패')
+            this.$vs.notify({
+              title: '로그인 실패',
+              text: data.message,
+              color: 'danger'
+            })
+          }
         })
         .catch((err) => {
-          this.loading = false
-          this.$vs.loading.close()
+          console.log(err)
           console.log('프론트엔드 로그인 실패')
           this.$vs.notify({
             title: '로그인 실패',
