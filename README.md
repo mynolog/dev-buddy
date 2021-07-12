@@ -31,21 +31,23 @@
 
 #### user
 
-| 필드명   | 타입          | 특성        |
-| -------- | ------------- | ----------- |
-| uid      | int           | primary key |
-| email    | varchar(50)   | unique key  |
-| name     | varchar(30)   | not null    |
-| password | vharchar(255) | not null    |
+| 필드명     | 타입          | 특성        |
+| ---------- | ------------- | ----------- |
+| uid        | int           | primary key |
+| email      | varchar(50)   | unique key  |
+| name       | varchar(30)   | not null    |
+| password   | vharchar(255) | not null    |
+| created_at | date          | not null    |
 
 #### post
 
-| 필드명  | 타입          | 특성                  |
-| ------- | ------------- | --------------------- |
-| pid     | int           | primary key           |
-| title   | varchar(255)  | not null              |
-| content | text          | not null              |
-| user_id | vharchar(255) | foreign key(user.uid) |
+| 필드명     | 타입         | 특성                  |
+| ---------- | ------------ | --------------------- |
+| pid        | int          | primary key           |
+| title      | varchar(255) | not null              |
+| content    | text         | not null              |
+| user_id    | int          | foreign key(user.uid) |
+| created_at | date         | not null              |
 
 ### 현재까지 구현된 기능들
 
@@ -59,14 +61,16 @@
 - [x] 폼 유효성 검사 (서버)
 - [x] 현재 위치 기반 날씨 정보 가져오기
 - [x] 기본 쿼리문 작성 (생성, 조회)
+- [x] 기본 쿼리문 작성 (수정, 삭제)
 - [x] 토스트 팝업 알림창 적용
 - [x] 데이터 바인딩 로딩 바 적용
-- [x] 네비게이션 가드
+- [x] 네비게이션 가드(전역)
 
 ### 📌 TODO
 
 - [ ] 폼 유효성 검사 (클라이언트, 서버)
-- [ ] 기본 쿼리문 작성 (수정, 삭제)
+- [ ] 네비게이션 가드(포스팅 수정, 삭제)
+- [ ] HTTP 요청 시 토큰 확인
 
 ### ‼ 로컬 테스트 방법
 
@@ -81,6 +85,6 @@ $ yarn client
 ```
 
 ```bash
-// Dev
+// Client + Server
 $ yarn dev
 ```
