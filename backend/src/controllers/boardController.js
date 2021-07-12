@@ -2,6 +2,7 @@ import { db } from '../config/db'
 import {
   allPosts,
   createPost,
+  deletePostById,
   findPostById,
   updatePostById,
 } from '../sql/query'
@@ -61,7 +62,27 @@ export const editPost = (req, res) => {
   } = req
   db.query(updatePostById, [title, content, pid], (err, row) => {
     if (row['affectedRows'] > 0) {
-      const message = '포스팅 수정 완료'
+      const message = '포스팅 수정 완료했습니다.'
+      return res.status(200).json({
+        result: 1,
+        message,
+      })
+    } else {
+      return res.status(400).json({
+        result: 0,
+      })
+    }
+  })
+}
+
+export const deletePost = (req, res) => {
+  const {
+    body: { pid },
+  } = req
+  console.log(pid)
+  db.query(deletePostById, [pid], (err, row) => {
+    if (row['affectedRows'] > 0) {
+      const message = '포스팅 삭제 완료했습니다.'
       return res.status(200).json({
         result: 1,
         message,

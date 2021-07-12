@@ -16,10 +16,14 @@
             </p>
           </vs-col>
         </vs-row>
-        <vs-button v-if="isAuthor" @click="notice" color="success" type="flat"
+        <vs-button v-if="isAuthor" @click="editPost" color="success" type="flat"
           >수정하기</vs-button
         >
-        <vs-button v-if="isAuthor" @click="notice" color="danger" type="flat"
+        <vs-button
+          v-if="isAuthor"
+          @click="deletePost"
+          color="danger"
+          type="flat"
           >삭제하기</vs-button
         >
       </vs-card>
@@ -32,7 +36,8 @@ export default {
   name: 'PostDetail',
   data() {
     return {
-      postInfo: {}
+      postInfo: {},
+      id: this.$route.params.id
     }
   },
   methods: {
@@ -43,11 +48,56 @@ export default {
         color: 'black'
       })
     },
-    getPostById() {
+    deletePost() {
+      const hasConfirmed = confirm('정말로 포스팅을 삭제하시겠습니까?')
+      if (!hasConfirmed) {
+        this.$vs.notify({
+          title: '포스팅 삭제 취소',
+          text: '포스팅 삭제 취소했습니다.',
+          color: 'warning'
+        })
+        return false
+      } else {
+        console.log(hasConfirmed)
+        this.$axios
+          .delete(`/api/posts/${this.id}`, { data: { pid: this.id } })
+          .then(({ data }) => {
+            if (data.result === 1) {
+              this.$vs.notify({
+                title: '포스팅 삭제 완료',
+                text: data.message,
+                color: 'success'
+              })
+              this.$router.push('/posts')
+            }
+          })
+          .catch((err) => {
+            this.$vs.notify({
+              title: '포스팅 삭제 실패',
+              text: '관리자에게 문의하세요.' || err,
+              color: 'danger'
+            })
+          })
+      }
+    },
+    editPost() {
       const {
-        params: { id }
-      } = this.$route
-      this.$axios.get(`/api/posts/${id}`).then(({ data }) => {
+        postInfo: { authId },
+        userId
+      } = this
+      if (authId !== userId) {
+        this.$vs.notify({
+          title: '포스팅 수정 권한 없음',
+          text: '포스팅 작성자만 수정할 수 있습니다.',
+          color: 'danger'
+        })
+        this.$router.push(`/posts/${this.id}`)
+        return false
+      }
+      this.$router.push(`/posts/${this.id}/edit`)
+    },
+    getPostById() {
+      this.$axios.get(`/api/posts/${this.id}`).then(({ data }) => {
         const { result, message, post } = data
         const postInfo = JSON.parse(post)
         const { pid, title, content, user_id, created_at } = postInfo

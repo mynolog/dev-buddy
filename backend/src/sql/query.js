@@ -13,3 +13,5 @@ export const allPosts = `SELECT user.name, post.pid, post.title, post.user_id as
 export const findPostById = `SELECT post.pid, post.title, post.content, post.user_id, post.created_at FROM post WHERE pid=?`
 
 export const updatePostById = `UPDATE post SET title=?, content=? WHERE pid=?`
+
+export const deletePostById = `DELETE FROM post WHERE pid=?`
