@@ -16,10 +16,10 @@
             </p>
           </vs-col>
         </vs-row>
-        <vs-button @click="notice" color="success" type="flat"
+        <vs-button v-if="isAuthor" @click="notice" color="success" type="flat"
           >수정하기</vs-button
         >
-        <vs-button @click="notice" color="danger" type="flat"
+        <vs-button v-if="isAuthor" @click="notice" color="danger" type="flat"
           >삭제하기</vs-button
         >
       </vs-card>
@@ -50,14 +50,15 @@ export default {
       this.$axios.get(`/api/posts/${id}`).then(({ data }) => {
         const { result, message, post } = data
         const postInfo = JSON.parse(post)
-        const { pid, title, content, created_at } = postInfo
+        const { pid, title, content, user_id, created_at } = postInfo
         const contents = content.split('\n')
         if (result === 1) {
           this.postInfo = {
             pid,
             title,
             contents,
-            createdAt: created_at
+            createdAt: created_at,
+            authId: user_id
           }
         }
         if (result === 0) {
@@ -69,6 +70,14 @@ export default {
           this.$router.push('/posts')
         }
       })
+    }
+  },
+  computed: {
+    userId() {
+      return this.$store.getters.getUserId
+    },
+    isAuthor() {
+      return this.postInfo.authId === this.userId ? true : false
     }
   },
   mounted() {

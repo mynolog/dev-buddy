@@ -9,22 +9,19 @@ export default new Vuex.Store({
     user: {
       id: null,
       email: null,
-      name: null,
-      token: null
+      name: null
     },
     loggedIn: false
   },
   mutations: {
     login(state, payload) {
       state.loggedIn = true
-      state.user.token = payload.token
       state.user.id = payload.user.id
       state.user.email = payload.user.email
       state.user.name = payload.user.name
     },
     logout(state) {
       state.loggedIn = false
-      state.user.token = null
       state.user.id = null
       state.user.email = null
       state.user.name = null

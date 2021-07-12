@@ -1,5 +1,10 @@
 import { db } from '../config/db'
-import { allPosts, createPost, findPostById } from '../sql/query'
+import {
+  allPosts,
+  createPost,
+  findPostById,
+  updatePostById,
+} from '../sql/query'
 
 export const home = (req, res) => res.json({ title: 'Hello from express.js' })
 
@@ -41,12 +46,30 @@ export const postDetail = (req, res) => {
   } = req
   db.query(findPostById, [id], (err, row) => {
     const post = JSON.stringify(row[0])
-    console.log(post)
     if (post === undefined) {
       const message = '해당 포스팅이 존재하지 않습니다.'
       return res.json({ result: 0, message })
     }
     const message = '포스팅 불러오기 성공'
     return res.json({ result: 1, message, post })
+  })
+}
+
+export const editPost = (req, res) => {
+  const {
+    body: { title, content, pid },
+  } = req
+  db.query(updatePostById, [title, content, pid], (err, row) => {
+    if (row['affectedRows'] > 0) {
+      const message = '포스팅 수정 완료'
+      return res.status(200).json({
+        result: 1,
+        message,
+      })
+    } else {
+      return res.status(400).json({
+        result: 0,
+      })
+    }
   })
 }

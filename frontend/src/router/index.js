@@ -76,6 +76,12 @@ const routes = [
     beforeEnter: authRequired()
   },
   {
+    path: '/posts/:id/edit',
+    name: 'EditPost',
+    component: () => import('../views/EditPost.vue'),
+    beforeEnter: authRequired()
+  },
+  {
     path: '/posts/:id',
     name: 'Post',
     component: () => import('../views/Post.vue'),

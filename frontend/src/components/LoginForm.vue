@@ -49,7 +49,7 @@ export default {
               color: 'success'
             })
             this.$store.commit('login', data)
-            this.$cookie.set('accessToken', data.token, 7)
+            // this.$cookie.set('accessToken', data.token, 7)
             this.$router.push('/')
           }
           if (data.result === 0) {
