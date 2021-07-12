@@ -37,12 +37,20 @@ export default {
         params: { id }
       } = this.$route
       const {
-        postInfo: { title, contents, pid }
+        postInfo: { title, contents, pid, authId }
       } = this
       if (!title || !contents) {
         this.$vs.notify({
-          title: '포스팅 실패',
+          title: '포스팅 수정 실패',
           text: '제목과 내용을 모두 입력하세요.',
+          color: 'danger'
+        })
+        return false
+      }
+      if (authId !== this.userId) {
+        this.$vs.notify({
+          title: '포스팅 수정 권한 없음',
+          text: '포스팅 작성자만 수정할 수 있습니다.',
           color: 'danger'
         })
         return false
