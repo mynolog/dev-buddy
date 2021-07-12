@@ -86,6 +86,11 @@ const routes = [
     name: 'NewPost',
     component: () => import('../views/NewPost.vue'),
     beforeEnter: authRequired()
+  },
+  {
+    path: '*',
+    name: '404',
+    component: () => import('../views/404.vue')
   }
 ]
 
