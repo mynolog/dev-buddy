@@ -9,7 +9,15 @@
           <vs-col type="flex" vs-justify="center" vs-align="center">
             <div>포스팅 번호 {{ postInfo.pid }}</div>
             <span>{{ postInfo.author }}</span> |
-            <small>{{ postInfo.createdAt }}</small>
+            <small v-if="!postInfo.isUpdated">{{
+              postInfo.createdAt | moment('YYYY-MM-DD HH:mm')
+            }}</small>
+            <small v-else
+              >{{
+                postInfo.updatedAt | moment('YYYY-MM-DD HH:mm')
+              }}
+              (수정)</small
+            >
             <p>
               <template
                 class="contents"
@@ -66,7 +74,9 @@ export default {
       return this.$router.push('/posts')
     },
     deletePost() {
-      const hasConfirmed = confirm('정말로 포스팅을 삭제하시겠습니까?')
+      const hasConfirmed = confirm(
+        '⚠ 정말로 삭제하시겠습니까? \n 취소할 수 없는 작업입니다.'
+      )
       if (!hasConfirmed) {
         this.$vs.notify({
           title: '포스팅 삭제 취소',
@@ -113,30 +123,53 @@ export default {
       this.$router.push(`/posts/${this.id}/edit`)
     },
     getPostById() {
-      this.$axios.get(`/api/posts/${this.id}`).then(({ data }) => {
-        const { result, message, post } = data
-        const postInfo = JSON.parse(post)
-        const { pid, title, content, user_id, created_at, author } = postInfo
-        const contents = content.split('\n')
-        if (result === 1) {
-          this.postInfo = {
+      this.$axios
+        .get(`/api/posts/${this.id}`)
+        .then(({ data }) => {
+          const { result, message, post } = data
+          const postInfo = JSON.parse(post)
+          const {
             pid,
             title,
-            contents,
-            createdAt: created_at,
-            authId: user_id,
-            author
+            content,
+            user_id,
+            created_at,
+            author,
+            updated_at,
+            is_updated,
+            views
+          } = postInfo
+          const contents = content.split('\n')
+          if (result === 1) {
+            this.postInfo = {
+              pid,
+              title,
+              contents,
+              createdAt: created_at,
+              updatedAt: updated_at,
+              isUpdated: is_updated,
+              authId: user_id,
+              author,
+              views
+            }
           }
-        }
-        if (result === 0) {
+          if (result === 0) {
+            this.$vs.notify({
+              title: '404 에러',
+              text: '존재하지 않는 페이지입니다.' || message,
+              color: 'danger'
+            })
+            this.$router.push('/posts')
+          }
+        })
+        .catch((err) => {
           this.$vs.notify({
-            title: '404 에러',
-            text: '존재하지 않는 페이지입니다.' || message,
+            title: '포스팅 불러오기 실패',
+            text: '관리자에게 문의하세요.' || err,
             color: 'danger'
           })
           this.$router.push('/posts')
-        }
-      })
+        })
     }
   },
   computed: {

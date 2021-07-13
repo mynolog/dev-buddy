@@ -9,6 +9,7 @@
         <vs-th>제목</vs-th>
         <vs-th>작성자</vs-th>
         <vs-th>작성일</vs-th>
+        <vs-th>조회수</vs-th>
       </template>
 
       <template slot-scope="{ data }">
@@ -25,7 +26,12 @@
             {{ data[indextr].name }}
           </vs-td>
           <vs-td :data="data[indextr].cratedAt">
-            <small>{{ data[indextr].createdAt }}</small>
+            <small>{{
+              data[indextr].createdAt | moment('YYYY-MM-DD HH:mm')
+            }}</small>
+          </vs-td>
+          <vs-td :data="data[indextr].views">
+            <small>{{ data[indextr].views }}</small>
           </vs-td>
         </vs-tr>
       </template>

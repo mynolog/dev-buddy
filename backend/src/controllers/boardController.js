@@ -1,6 +1,7 @@
 import { db } from '../config/db'
 import {
   allPosts,
+  countPostView,
   createPost,
   deletePostById,
   findPostById,
@@ -46,14 +47,18 @@ export const postDetail = (req, res) => {
     params: { id },
   } = req
   db.query(findPostById, [id], (err, row) => {
-    const post = JSON.stringify(row[0])
-    console.log(post)
-    if (post === undefined) {
+    try {
+      const post = JSON.stringify(row[0])
+      db.query(countPostView, [id], (err, row2) => {
+        if (row2['affectedRows'] > 0) {
+          const message = '포스팅 불러오기 성공'
+          return res.json({ result: 1, message, post })
+        }
+      })
+    } catch (err) {
       const message = '해당 포스팅이 존재하지 않습니다.'
       return res.json({ result: 0, message })
     }
-    const message = '포스팅 불러오기 성공'
-    return res.json({ result: 1, message, post })
   })
 }
 
@@ -80,7 +85,6 @@ export const deletePost = (req, res) => {
   const {
     body: { pid },
   } = req
-  console.log(pid)
   db.query(deletePostById, [pid], (err, row) => {
     if (row['affectedRows'] > 0) {
       const message = '포스팅 삭제 완료했습니다.'

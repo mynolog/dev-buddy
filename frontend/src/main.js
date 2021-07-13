@@ -7,9 +7,11 @@ import VueCookie from 'vue-cookie'
 import store from './store/store'
 import 'vuesax/dist/vuesax.css'
 import 'material-icons/iconfont/material-icons.css'
+import VueMoment from 'vue-moment'
 
 Vue.use(VueCookie)
 Vue.use(Vuesax)
+Vue.use(VueMoment)
 
 Vue.prototype.$axios = axios
 
