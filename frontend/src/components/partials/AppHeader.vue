@@ -46,6 +46,13 @@ export default {
   methods: {
     logout() {
       this.$store.commit('logout')
+      this.$axios.post('/api/logout').then(({ data }) => {
+        this.$vs.notify({
+          title: '로그아웃 성공',
+          text: data.message,
+          color: 'success'
+        })
+      })
     }
   },
   computed: {
