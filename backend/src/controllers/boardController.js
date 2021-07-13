@@ -1,3 +1,4 @@
+import e from 'express'
 import { db } from '../config/db'
 import {
   allPosts,
@@ -42,24 +43,40 @@ export const newPost = (req, res) => {
   })
 }
 
+// TODO: 동일한 페이지 접속 시 조회수 증가하지 않도록 개선
 export const postDetail = (req, res) => {
   const {
     params: { id },
+    session,
   } = req
-  db.query(findPostById, [id], (err, row) => {
-    try {
-      const post = JSON.stringify(row[0])
-      db.query(countPostView, [id], (err, row2) => {
-        if (row2['affectedRows'] > 0) {
-          const message = '포스팅 불러오기 성공'
-          return res.status(200).json({ result: 1, message, post })
-        }
-      })
-    } catch (err) {
-      const message = '해당 포스팅이 존재하지 않습니다.'
-      return res.status(400).json({ result: 0, message })
-    }
-  })
+
+  if (!session.visitedPage || session.visitedPage.indexOf(id) === -1) {
+    db.query(countPostView, [id], (err, row) => {
+      session.visitedPage = []
+      session.visitedPage.push(id)
+      if (row['affectedRows'] > 0) {
+        db.query(findPostById, [id], (err, row2) => {
+          try {
+            const post = JSON.stringify(row2[0])
+            const message = '포스팅 불러오기 성공'
+            return res.status(200).json({ result: 1, message, post })
+          } catch (err) {
+            return res.status(400).json({ result: 0, message })
+          }
+        })
+      }
+    })
+  } else {
+    db.query(findPostById, [id], (err, row) => {
+      try {
+        const post = JSON.stringify(row[0])
+        const message = '포스팅 불러오기 성공'
+        return res.status(200).json({ result: 1, message, post })
+      } catch (err) {
+        return res.status(400).json({ result: 0, message })
+      }
+    })
+  }
 }
 
 export const editPost = (req, res) => {

@@ -62,3 +62,14 @@ export const login = (req, res) => {
     }
   })
 }
+
+export const logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) throw err
+    console.log('세션을 삭제하고 로그아웃 합니다.')
+  })
+  res.status(200).json({
+    result: 1,
+    message: '로그아웃 성공',
+  })
+}
