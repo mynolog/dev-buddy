@@ -14,7 +14,7 @@ export const posts = (req, res) => {
   let postList = null
   db.query(allPosts, (err, row) => {
     postList = JSON.stringify(row)
-    return res.json({ result: 1, postList })
+    return res.status(200).json({ result: 1, postList })
   })
 }
 
@@ -27,14 +27,14 @@ export const newPost = (req, res) => {
     try {
       // 생성된 게시물의 아이디 값
       const newId = row['insertId']
-      return res.json({
+      return res.status(200).json({
         result: 1,
         message: '포스팅 성공했습니다.',
         pid: newId,
       })
     } catch (err) {
       console.log(err)
-      return res.json({
+      return res.status(400).json({
         result: 0,
         message: '포스팅 실패, 관리자에게 문의하세요.',
       })
@@ -52,12 +52,12 @@ export const postDetail = (req, res) => {
       db.query(countPostView, [id], (err, row2) => {
         if (row2['affectedRows'] > 0) {
           const message = '포스팅 불러오기 성공'
-          return res.json({ result: 1, message, post })
+          return res.status(200).json({ result: 1, message, post })
         }
       })
     } catch (err) {
       const message = '해당 포스팅이 존재하지 않습니다.'
-      return res.json({ result: 0, message })
+      return res.status(400).json({ result: 0, message })
     }
   })
 }
