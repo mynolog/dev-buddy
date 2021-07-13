@@ -53,7 +53,6 @@ export default {
           }, 500)
           const { data } = res
           this.postList = JSON.parse(data.postList)
-          console.log(this.postList)
         })
         .catch((err) => {
           this.loading = false
