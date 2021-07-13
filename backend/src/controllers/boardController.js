@@ -47,6 +47,7 @@ export const postDetail = (req, res) => {
   } = req
   db.query(findPostById, [id], (err, row) => {
     const post = JSON.stringify(row[0])
+    console.log(post)
     if (post === undefined) {
       const message = '해당 포스팅이 존재하지 않습니다.'
       return res.json({ result: 0, message })

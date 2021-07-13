@@ -7,25 +7,39 @@
         </div>
         <vs-row vs-justify="center">
           <vs-col type="flex" vs-justify="center" vs-align="center">
+            <div>포스팅 번호 {{ postInfo.pid }}</div>
+            <span>{{ postInfo.author }}</span> |
             <small>{{ postInfo.createdAt }}</small>
             <p>
-              <template v-for="(content, index) in postInfo.contents">
+              <template
+                class="contents"
+                v-for="(content, index) in postInfo.contents"
+              >
                 {{ content }}
                 <br :key="index" />
               </template>
             </p>
           </vs-col>
         </vs-row>
-        <vs-button v-if="isAuthor" @click="editPost" color="success" type="flat"
-          >수정하기</vs-button
-        >
-        <vs-button
-          v-if="isAuthor"
-          @click="deletePost"
-          color="danger"
-          type="flat"
-          >삭제하기</vs-button
-        >
+        <vs-row class="btn-container">
+          <vs-button
+            v-if="isAuthor"
+            @click="editPost"
+            color="warning"
+            type="flat"
+            >수정하기</vs-button
+          >
+          <vs-button
+            v-if="isAuthor"
+            @click="deletePost"
+            color="danger"
+            type="flat"
+            >삭제하기</vs-button
+          >
+          <vs-button @click="toPostList" color="success" type="flat">
+            목록보기
+          </vs-button>
+        </vs-row>
       </vs-card>
     </vs-col>
   </vs-row>
@@ -48,6 +62,9 @@ export default {
         color: 'black'
       })
     },
+    toPostList() {
+      return this.$router.push('/posts')
+    },
     deletePost() {
       const hasConfirmed = confirm('정말로 포스팅을 삭제하시겠습니까?')
       if (!hasConfirmed) {
@@ -58,7 +75,6 @@ export default {
         })
         return false
       } else {
-        console.log(hasConfirmed)
         this.$axios
           .delete(`/api/posts/${this.id}`, { data: { pid: this.id } })
           .then(({ data }) => {
@@ -100,7 +116,7 @@ export default {
       this.$axios.get(`/api/posts/${this.id}`).then(({ data }) => {
         const { result, message, post } = data
         const postInfo = JSON.parse(post)
-        const { pid, title, content, user_id, created_at } = postInfo
+        const { pid, title, content, user_id, created_at, author } = postInfo
         const contents = content.split('\n')
         if (result === 1) {
           this.postInfo = {
@@ -108,7 +124,8 @@ export default {
             title,
             contents,
             createdAt: created_at,
-            authId: user_id
+            authId: user_id,
+            author
           }
         }
         if (result === 0) {
