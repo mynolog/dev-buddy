@@ -1,35 +1,45 @@
 <template>
   <vs-row vs-justify="center">
     <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="6">
-      <vs-card>
+      <vs-card class="post-container">
         <div slot="header">
           <h3>{{ postInfo.title }}</h3>
         </div>
-        <vs-row vs-justify="center">
-          <vs-col type="flex" vs-justify="center" vs-align="center">
-            <div>포스팅 번호 {{ postInfo.pid }}</div>
-            <span>{{ postInfo.author }}</span> |
+
+        <vs-row vs-type="flex">
+          <vs-col vs-type="flex" vs-justify="flex-start" vs-align="center">
+            <span>포스팅 번호 {{ postInfo.pid }}</span>
+          </vs-col>
+        </vs-row>
+        <vs-row>
+          <vs-col vs-type="flex" vs-justify="flex-start" vs-align="center">
+            <span>{{ postInfo.author }}</span>
+          </vs-col>
+          <vs-col vs-type="flex" vs-justify="flex-start" vs-align="center">
             <small v-if="!postInfo.isUpdated">{{
               postInfo.createdAt | moment('YYYY-MM-DD HH:mm')
             }}</small>
             <small v-else
               >{{
-                postInfo.updatedAt | moment('YYYY-MM-DD HH:mm')
+                postInfo.createdAt | moment('YYYY-MM-DD HH:mm')
               }}
               (수정)</small
             >
-            <p>
-              <template
-                class="contents"
-                v-for="(content, index) in postInfo.contents"
-              >
+          </vs-col>
+        </vs-row>
+
+        <vs-row>
+          <vs-col>
+            <p class="post-contents">
+              <template v-for="(content, index) in postInfo.contents">
                 {{ content }}
                 <br :key="index" />
               </template>
             </p>
           </vs-col>
         </vs-row>
-        <vs-row class="btn-container">
+
+        <vs-row vs-justify="flex-end">
           <vs-button
             v-if="isAuthor"
             @click="editPost"
@@ -186,4 +196,15 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.post-container {
+  height: 90%;
+}
+.post-contents {
+  background-color: #fcfcfc;
+  min-height: 55vh;
+  margin: 10px 0;
+  padding: 20px 15px;
+  border-radius: 10px;
+}
+</style>

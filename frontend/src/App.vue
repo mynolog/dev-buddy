@@ -38,7 +38,7 @@ export default {
 }
 #app {
   font-family: 'Noto Sans KR', sans-serif;
-  text-align: center;
+  // text-align: center;
   color: #2c3e50;
   position: relative;
   min-height: 100%;
