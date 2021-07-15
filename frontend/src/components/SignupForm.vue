@@ -41,12 +41,6 @@ export default {
   },
 
   methods: {
-    openNoti(keyword, message) {
-      this.$vs.notification({
-        title: keyword,
-        text: message
-      })
-    },
     submit() {
       this.loading = true
       this.$vs.loading()
@@ -83,10 +77,18 @@ export default {
               text: data.message,
               color: 'danger'
             })
-            this.openNoti('Error', data.message)
           }
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          this.loading = false
+          this.$vs.loading.close()
+          console.log(err)
+          this.$vs.notify({
+            title: '회원가입 실패',
+            text: '이미 등록된 이메일 주소입니다.',
+            color: 'danger'
+          })
+        })
     }
   }
 }

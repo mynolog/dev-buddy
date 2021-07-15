@@ -17,10 +17,12 @@ export const signup = (req, res) => {
       // 회원 정보 DB 저장
       db.query(joinUser, user, (err, row2) => {
         if (err) throw err
-        return res.json({ result: 1, message: '회원가입 성공했습니다.' })
+        return res
+          .status(200)
+          .json({ result: 1, message: '회원가입 성공했습니다.' })
       })
     } else {
-      return res.json({ result: 0, message: '이미 등록된 이메일 주소입니다.' })
+      return res.status(400).json({ result: 0 })
     }
   })
 }
