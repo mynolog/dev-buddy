@@ -198,13 +198,14 @@ export default {
 
 <style lang="scss" scoped>
 .post-container {
-  height: 90%;
+  height: 60%;
 }
 .post-contents {
   background-color: #fcfcfc;
-  min-height: 55vh;
+  min-height: 280px;
   margin: 10px 0;
   padding: 20px 15px;
   border-radius: 10px;
+  text-align: left;
 }
 </style>
