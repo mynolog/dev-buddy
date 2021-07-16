@@ -3,7 +3,7 @@
     <div>{{ user.name }} All rights reserved. {{ currentYear }}</div>
     <ul>
       <li>
-        <a :href="githubLink">
+        <a :href="githubLink" target="_blank">
           <i class="fab fa-github fa-2x"></i>
         </a>
       </li>
@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     githubLink() {
-      return `https://github.com/${this.user.name}`
+      return `https://github.com/${this.user.github}`
     },
     mailTo() {
       return `mailto:${this.user.email}`

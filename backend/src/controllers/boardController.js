@@ -8,8 +8,6 @@ import {
   updatePostById,
 } from '../sql/query'
 
-export const home = (req, res) => res.json({ title: 'Hello from express.js' })
-
 export const posts = (req, res) => {
   let postList = null
   db.query(allPosts, (err, row) => {
