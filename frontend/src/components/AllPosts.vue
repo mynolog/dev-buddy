@@ -56,7 +56,7 @@ export default {
           this.loading = false
           setTimeout(() => {
             this.$vs.loading.close()
-          }, 500)
+          }, 300)
           const { data } = res
           this.postList = JSON.parse(data.postList)
         })

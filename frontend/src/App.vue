@@ -50,6 +50,7 @@ export default {
   margin: 0 auto;
   min-height: 95vh;
   padding: 50px 0;
+  text-align: center;
 }
 a {
   color: #000;
