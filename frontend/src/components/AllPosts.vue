@@ -1,6 +1,6 @@
 <template>
   <div class="post__table">
-    <vs-table max-items="5" pagination :data="postList">
+    <vs-table max-items="8" pagination :data="postList">
       <template slot="header">
         <h3>둘러보기</h3>
       </template>
@@ -36,6 +36,13 @@
         </vs-tr>
       </template>
     </vs-table>
+    <vs-row vs-type="flex">
+      <vs-col vs-type="flex" vs-justify="flex-end">
+        <vs-button color="success">
+          <router-link to="/new-post">스터디 모집</router-link>
+        </vs-button>
+      </vs-col>
+    </vs-row>
   </div>
 </template>
 
@@ -81,5 +88,10 @@ export default {
 <style lang="scss" scoped>
 .post__table {
   text-align: left;
+}
+.vs-button-text {
+  a {
+    color: #fff;
+  }
 }
 </style>

@@ -187,7 +187,7 @@ export default {
       return this.$store.getters.getUserId
     },
     isAuthor() {
-      return this.postInfo.authId === this.userId ? true : false
+      return this.postInfo.authId === this.userId
     }
   },
   mounted() {
